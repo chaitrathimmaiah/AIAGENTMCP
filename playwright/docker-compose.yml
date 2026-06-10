@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  playwright-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: playwright-tests
+    environment:
+      - CI=true
+      - NODE_ENV=test
+    volumes:
+      - ./tests:/app/tests
+      - ./playwright-report:/app/playwright-report
+      - ./test-results:/app/test-results
+    command: npm test
+
+  playwright-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: playwright-ui-mode
+    environment:
+      - NODE_ENV=test
+    volumes:
+      - ./tests:/app/tests
+      - ./playwright-report:/app/playwright-report
+      - ./test-results:/app/test-results
+    ports:
+      - "3000:3000"
+    command: npx playwright test --ui --ui-port=3000
+    stdin_open: true
+    tty: true
+
+  playwright-debug:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: playwright-debug
+    environment:
+      - NODE_ENV=test
+    volumes:
+      - ./tests:/app/tests
+      - ./playwright-report:/app/playwright-report
+      - ./test-results:/app/test-results
+    command: npx playwright test --debug
+    stdin_open: true
+    tty: true
+
+volumes:
+  test-results:
+  playwright-report:
