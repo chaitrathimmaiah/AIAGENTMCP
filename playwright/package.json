@@ -1,0 +1,33 @@
+{
+  "name": "playwright-project",
+  "version": "1.0.0",
+  "description": "Playwright automation testing project",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:headed": "playwright test --headed",
+    "test:chromium": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "test:webkit": "playwright test --project=webkit",
+    "test:login": "playwright test login.spec.js",
+    "test:addtocart": "playwright test addToCart.spec.js",
+    "test:checkout": "playwright test checkout.spec.js",
+    "test:saucedemo": "playwright test saucedemo-pom.spec.js",
+    "test:pom": "playwright test login.spec.js addToCart.spec.js checkout.spec.js",
+    "docker:build": "docker build -t playwright-project:latest .",
+    "docker:test": "docker-compose run --rm playwright-tests",
+    "docker:ui": "docker-compose up playwright-ui",
+    "docker:debug": "docker-compose run -it playwright-debug",
+    "docker:report": "start playwright-report/index.html",
+    "docker:clean": "docker-compose down -v && docker rmi playwright-project:latest",
+    "mcp:github": "node .mcp/github-mcp-server.js",
+    "mcp:github-ps": ".mcp/start-github-mcp.ps1"
+  },
+  "keywords": ["playwright", "testing", "automation"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0"
+  }
+}
